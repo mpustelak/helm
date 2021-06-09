@@ -6,6 +6,8 @@ ENV HELM_2_FILE="helm-v2.17.0-linux-amd64.tar.gz"
 ENV HELM_3_FILE="helm-v3.6.0-linux-amd64.tar.gz"
 
 ENV PYTHONUNBUFFERED=1
+RUN mkdir -p /github/workspace && \
+    chmod ugo=rwx /github/workspace
 
 RUN echo "**** install Python ****" && \
     apk add --no-cache python3 && \
