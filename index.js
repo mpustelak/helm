@@ -245,6 +245,11 @@ async function run() {
     });
 
     // Remove the canary deployment before continuing.
+    // Run few checks
+    await exec.exec("ls /github");
+    await exec.exec("ls /github/home");
+    await exec.exec("ls /github/workspace");
+    await exec.exec("ls /github/workflow");
     if (removeCanary) {
       core.debug(`removing canary ${appName}-canary`);
       await exec.exec(helm, deleteCmd(helm, namespace, `${appName}-canary`), {
