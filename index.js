@@ -208,7 +208,7 @@ async function run() {
       process.env.HELM_HOME = "/root/.helm/"
     }
 
-    if (dryRun) args.push("--dry-run");
+    if (dryRun === 'true') args.push("--dry-run");
     if (appName) args.push(`--set=app.name=${appName}`);
     if (version) args.push(`--set=app.version=${version}`);
     if (chartVersion) args.push(`--version=${chartVersion}`);
@@ -245,11 +245,6 @@ async function run() {
     });
 
     // Remove the canary deployment before continuing.
-    // Run few checks
-    await exec.exec("ls -a /github");
-    await exec.exec("ls -a /github/home");
-    await exec.exec("ls -a /github/workspace");
-    await exec.exec("ls -a /github/workflow");
     if (removeCanary) {
       core.debug(`removing canary ${appName}-canary`);
       await exec.exec(helm, deleteCmd(helm, namespace, `${appName}-canary`), {
